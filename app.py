@@ -5,7 +5,7 @@ import joblib
 
 # ── CONFIG ──────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Tamil Nadu Crop Advisor",
+    page_title="Agri-Crop Recommendation Portal",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
