@@ -122,6 +122,67 @@ html, body, [class*="css"] {
     border: 1px dashed #d0ccc4;
 }
 
+
+/* ── DISTRICT SUMMARY STYLING ───────────────────────────────────── */
+
+[data-testid="stMetric"] {
+    background: #f5f2eb !important;
+    border-radius: 10px !important;
+    padding: 14px !important;
+    text-align: center !important;
+    border: none !important;
+}
+
+[data-testid="stMetricLabel"] {
+    color: #7a8f82 !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
+}
+
+[data-testid="stMetricLabel"] p {
+    color: #7a8f82 !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 0.75rem !important;
+    font-weight: 400 !important;
+}
+
+[data-testid="stMetricValue"] {
+    color: #1a3a2a !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="stMetricValue"] div {
+    color: #1a3a2a !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+}
+
+[data-testid="stMetricDelta"] {
+    display: none !important;
+}
+
+
+/* ── TOP PICK STYLING ────────────────────────────────────────────── */
+
+div[data-testid="stAlert"] {
+    background: #e8f5e0 !important;
+    border: none !important;
+    border-radius: 10px !important;
+    color: #1a5c35 !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 0.85rem !important;
+}
+
+div[data-testid="stAlert"] p {
+    color: #1a5c35 !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 0.85rem !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -143,6 +204,7 @@ df = load_data()
 clf = load_model()
 
 
+# ── MODEL FEATURES ─────────────────────────────────────────────────
 FEATURES = [
     "Water_Score",
     "Temp_Score",
@@ -215,7 +277,10 @@ with c3:
         ["None"] + sorted(df["Crop"].unique())
     )
 
-st.markdown('</div>', unsafe_allow_html=True)
+st.markdown(
+    '</div>',
+    unsafe_allow_html=True
+)
 
 
 # ── FILTER & SCORE ──────────────────────────────────────────────────
@@ -290,6 +355,7 @@ with left:
 
     # Three empty recommendation boxes
     for _ in range(3):
+
         st.markdown(
             '<div class="crop-card"></div>',
             unsafe_allow_html=True
@@ -304,6 +370,7 @@ with left:
 
     # Four empty alternate-option boxes
     for _ in range(4):
+
         st.markdown(
             '<div class="alt-card"></div>',
             unsafe_allow_html=True
@@ -324,6 +391,7 @@ with right:
 
     # Three empty avoid boxes
     for _ in range(3):
+
         st.markdown(
             '<div class="avoid-card"></div>',
             unsafe_allow_html=True
@@ -361,7 +429,8 @@ with right:
             else "N/A"
         )
 
-        # District summary values
+
+        # ── SUMMARY VALUES ─────────────────────────────────────────
         s1, s2 = st.columns(2)
 
         with s1:
@@ -376,6 +445,8 @@ with right:
                 value=f"{num_crops}"
             )
 
+
+        # ── TOP PICK ────────────────────────────────────────────────
         st.success(
             f"Top pick this season: {best_crop}"
         )
