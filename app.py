@@ -344,8 +344,6 @@ with right:
 
 
     # ── DISTRICT SUMMARY ───────────────────────────────────────────
-    # This section remains fully functional.
-
     if not df_d.empty:
 
         st.markdown(
@@ -363,46 +361,21 @@ with right:
             else "N/A"
         )
 
-        st.markdown(
-            f"""
-            <div class="risk-panel">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:center;">
+        # District summary values
+        s1, s2 = st.columns(2)
 
-                    <div style="background:#f5f2eb;border-radius:10px;padding:14px;">
-                        <div style="font-size:1.4rem;font-weight:600;color:#1a3a2a;">
-                            {avg_rain:.0f}
-                            <span style="font-size:0.75rem;color:#7a8f82;">
-                                mm
-                            </span>
-                        </div>
+        with s1:
+            st.metric(
+                label="Avg Rainfall",
+                value=f"{avg_rain:.0f} mm"
+            )
 
-                        <div style="font-size:0.75rem;color:#7a8f82;margin-top:2px;">
-                            Avg Rainfall
-                        </div>
-                    </div>
+        with s2:
+            st.metric(
+                label="Crops Tracked",
+                value=f"{num_crops}"
+            )
 
-
-                    <div style="background:#f5f2eb;border-radius:10px;padding:14px;">
-                        <div style="font-size:1.4rem;font-weight:600;color:#1a3a2a;">
-                            {num_crops}
-                        </div>
-
-                        <div style="font-size:0.75rem;color:#7a8f82;margin-top:2px;">
-                            Crops Tracked
-                        </div>
-                    </div>
-
-                </div>
-
-
-                <div style="margin-top:10px;background:#e8f5e0;border-radius:10px;padding:12px;text-align:center;font-size:0.85rem;color:#1a5c35;">
-                    <span style="font-weight:600;">
-                        Top pick this season:
-                    </span>
-                    {best_crop}
-                </div>
-
-            </div>
-            """,
-            unsafe_allow_html=True
+        st.success(
+            f"Top pick this season: {best_crop}"
         )
